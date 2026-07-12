@@ -3,19 +3,12 @@ package ru.mentee.power;
 
 public class ProgressDemo {
     public static void main(String[] args) {
-        MenteeProgress сергей = new MenteeProgress(
-                "Сергей", // подставь своё имя
-                2,              // номер спринта
-                10               // часы из плана PLAN-2
-        );
+        System.out.println("Running in feature/DVT-4 context");
 
-        var progress = сергей;
-
-        System.out.println(progress.summary());
-        if (progress.readyForSprint()) {
-            System.out.println("Status: sprint ready");
-        } else {
-            System.out.println("Status: backlog first");
+        System.out.println("Hello and welcome!");
+        for (int step = 1; step <= 3; step++) {
+            System.out.println("Step " + step);
         }
+        System.out.println("HELLO DEVTOOLS");
     }
 }
