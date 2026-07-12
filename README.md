@@ -5,3 +5,5 @@ Quick Start: run - Tasks → application → run; build - Tasks → build → Ru
 Пакет ru.mentee.power: Пакет (package) это способ логически сгруппировать классы и задать им «адрес», чтобы код был понятным, не конфликтовал и был безопасным. 
 
 menteeName (String) - имя стажера; sprintNumber (int) - номер спринта; plannedHoursPerWeek (int) - запланированные часы в неделю; readyForSprint() - бизнес-логика (стажёр считается готовым к спринту, если у него запланировано не меньше N часов)
+
+git config --global user.name/email - проверяем в Settings → Version Control → Git → Test
