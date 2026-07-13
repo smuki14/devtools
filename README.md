@@ -7,3 +7,9 @@ Quick Start: run - Tasks → application → run; build - Tasks → build → Ru
 menteeName (String) - имя стажера; sprintNumber (int) - номер спринта; plannedHoursPerWeek (int) - запланированные часы в неделю; readyForSprint() - бизнес-логика (стажёр считается готовым к спринту, если у него запланировано не меньше N часов)
 
 git config --global user.name/email - проверяем в Settings → Version Control → Git → Test
+
+Правило качества: перед каждым git push обязательно выполняй git status и убедись, что статус — nothing to commit, working tree clean (или что в Commit Tool Window нет лишних файлов).
+Где проверять:
+
+В IDE: Commit Tool Window (Ctrl+K) — списки Unversioned/Changes должны быть пустыми или содержать только ожидаемые файлы.
+В CLI: git status — должен показывать «nothing to commit, working tree clean»
