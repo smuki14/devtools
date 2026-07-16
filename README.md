@@ -34,3 +34,10 @@ BUILD SUCCESSFUL in 447ms
 Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.3.0/userguide/configuration_cache_enabling.html
 23:55:26: Execution finished ':ru.mentee.power.devtools.examples.ProgressTracker.main()'.
    Суммарно: пройдено 25 из 36 уроков, осталось 11 уроков
+
+Проверка DVT‑6
+
+1. Открыть `ProgressTracker.java`, поставить breakpoint на строку внутри цикла `while`.
+2. Запустить в режиме Debug (значок 🐞 рядом с `main`).
+3. В момент остановки открыть Evaluate Expression (Alt+F8) и проверить выражение `mentees[0]`.
+4. В панели Variables убедиться, что `totalCompleted` меняется при нажатии F8.
