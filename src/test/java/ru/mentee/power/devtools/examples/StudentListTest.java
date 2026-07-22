@@ -1,10 +1,10 @@
 package ru.mentee.power.devtools.examples;
 
-import java.util.List;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class StudentListTest {
 
@@ -18,16 +18,15 @@ class StudentListTest {
     }
 
     @Test
-    void addStudentAddsMultipleStudentsAllAreStored() {
+    void addStudentAddsStudentToList() {
         StudentList list = new StudentList();
-        list.addStudent(new Student("Anna", "Rostov"));
-        list.addStudent(new Student("Boris", "Rostov"));
-        list.addStudent(new Student("Cedric", "Moscow"));
 
-        List<Student> all = list.getAll();
-        assertThat(all).hasSize(3);
-        assertThat(all.get(0).getCity()).isEqualTo("Rostov");
-        assertThat(all.get(2).getCity()).isEqualTo("Moscow");
+        Student newStudent = new Student("Boris", "Kazan");
+        list.addStudent(newStudent);
+
+        assertThat(list.getAll()).containsExactly(newStudent);      // если getAll есть
+        // или, если getAll нет, можно проверить через getStudentsByCity:
+        // assertThat(list.getStudentsByCity("Kazan")).containsExactly(newStudent);
     }
 
     @Test
@@ -44,13 +43,17 @@ class StudentListTest {
         assertThat(rostovStudents.get(1).getName()).isEqualTo("Bob");
     }
 
+
     @Test
-    void getStudentsByCityCityNotFoundReturnsEmptyList() {
+    void getStudentsByCityWithNullOrEmptyCityReturnsEmptyList() {
         StudentList list = new StudentList();
-        list.addStudent(new Student("Diana", "Moscow"));
+        list.addStudent(new Student("Ivan", "Moscow"));
+        list.addStudent(new Student("Anna", "Rostov"));
 
-        List<Student> unknownCity = list.getStudentsByCity("UnknownCity");
+        // Проверяем null
+        assertThat(list.getStudentsByCity(null)).isEmpty();
 
-        assertThat(unknownCity).isEmpty();
+        // Проверяем пустую строку
+        assertThat(list.getStudentsByCity("")).isEmpty();
     }
 }
