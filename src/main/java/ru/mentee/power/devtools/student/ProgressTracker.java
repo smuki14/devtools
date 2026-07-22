@@ -1,4 +1,4 @@
-package ru.mentee.power.devtools.examples;
+package ru.mentee.power.devtools.student;
 
 public class ProgressTracker {
 

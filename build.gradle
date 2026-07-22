@@ -35,10 +35,11 @@ jacoco {
 
 
 jacocoTestCoverageVerification {
+    dependsOn jacocoTestReport
     violationRules {
         rule {
             limit {
-                minimum = 0.0
+                minimum = 0.80
             }
         }
     }
@@ -50,7 +51,12 @@ jacocoTestReport {
         html.required = true
         xml.required = false
         csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
     }
+}
+
+check {
+    dependsOn jacocoTestCoverageVerification
 }
 
 repositories {
@@ -69,6 +75,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 
     testLogging {
         events "passed", "failed", "skipped"
