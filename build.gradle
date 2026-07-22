@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
     id 'application'
+    id 'checkstyle'
+    id 'jacoco'
 }
 
 group = 'ru.mentee.power'
@@ -21,12 +22,42 @@ application {
     mainClass = 'ru.mentee.power.devtools.examples.ProgressTracker'
 }
 
+checkstyle {
+    toolVersion = '13.8.0'
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    maxErrors = 0
+    maxWarnings = 999
+}
+
+jacoco {
+    toolVersion = "0.8.14"
+}
+
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.0
+            }
+        }
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = false
+        csv.required = false
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
     testImplementation platform("org.junit:junit-bom:${junitVersion}")
     testImplementation "org.junit.jupiter:junit-jupiter"
 
