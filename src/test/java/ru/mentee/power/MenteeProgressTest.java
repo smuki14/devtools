@@ -1,13 +1,13 @@
 package ru.mentee.power;
 
-
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MenteeProgressTest {
+
     @Test
-    void shouldFormatSummary_whenProgressCreated() {
+    void shouldFormatSummaryWhenProgressCreated() {
         MenteeProgress progress = new MenteeProgress("Сергей", 2, 10);
 
         String result = progress.summary();
@@ -16,14 +16,14 @@ class MenteeProgressTest {
     }
 
     @Test
-    void shouldDetectReadiness_whenHoursAboveThreshold() {
+    void shouldDetectReadinessWhenHoursAboveThreshold() {
         MenteeProgress progress = new MenteeProgress("Сергей", 2, 5);
 
         assertThat(progress.readyForSprint()).isTrue();
     }
 
     @Test
-    void shouldDetectLackOfReadiness_whenHoursBelowThreshold() {
+    void shouldDetectLackOfReadinessWhenHoursBelowThreshold() {
         MenteeProgress progress = new MenteeProgress("Сергей", 2, 2);
 
         assertThat(progress.readyForSprint()).isFalse();
