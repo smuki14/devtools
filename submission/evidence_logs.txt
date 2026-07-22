@@ -1,0 +1,26 @@
+git --version
+where git
+git config user.name
+git config user.email
+git status
+git log --oneline
+git branch --show-current
+git show --name-only HEAD
+Комманда & "C:\Program Files\Git\cmd\git.exe" branch
+Ответ      * feature/DVT-3
+           master
+Комманда & "C:\Program Files\Git\cmd\git.exe" show --name-only HEAD
+Ответ commit 89319921cceda1fa9d0dc70534633a31f29c8c99 (HEAD -> master)
+     Author: Сергей <smuki081991@gmail.com>
+     Date:   Sat Jul 11 19:17:48 2026 +0300
+
+         обавить локальный шаблон и правило веток
+
+     .gitignore
+     README.md
+     build.gradle
+     gradle/wrapper/gradle-wrapper.jar
+     gradle/wrapper/gradle-wrapper.properties
+     gradlew
+Комманда & "C:\Program Files\Git\cmd\git.exe" switch feature/DVT-3
+Ответ Switched to branch 'feature/DVT-3'

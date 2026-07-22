@@ -1,5 +1,5 @@
 
-package ru.mentee.power.devtools.examples;
+package ru.mentee.power.devtools.student;
 
 public class Student {
     private final String name;

@@ -96,7 +96,7 @@ https://checkstyle.org/checks/sizes/linelength.html
 
 WhitespaceAround
 До public int size(){
-После public int size(){
+После public int size() {
 Почему: Повышает читаемость кода
 https://checkstyle.org/checks/whitespace/whitespacearound.html
 

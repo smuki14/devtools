@@ -1,4 +1,4 @@
-package ru.mentee.power.devtools.examples;
+package ru.mentee.power.devtools.student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,6 @@ public class StudentList {
         }
 
 
-        int count = students.size();
 
 
         return students.stream()
