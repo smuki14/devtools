@@ -1,5 +1,4 @@
 plugins {
-    id 'java'
     id 'application'
     id 'checkstyle'
     id 'jacoco'
@@ -24,10 +23,14 @@ application {
 }
 
 checkstyle {
-    toolVersion = '10.12.4'
-    configFile = file('config/checkstyle/checkstyle.xml')
+    toolVersion = '13.8.0'
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
     maxErrors = 0
     maxWarnings = 999
+}
+
+jacoco {
+    toolVersion = "0.8.14"
 }
 
 

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class StudentList {
     private final List<Student> students = new ArrayList<>();
 
-    public void  addStudent (Student student) {
+    public void addStudent (Student student) {
         students.add(student);
     }
 
@@ -24,6 +24,10 @@ public class StudentList {
         if (city == null || city.isEmpty()) {
             return new ArrayList<>();
         }
+
+
+        int count = students.size();
+
 
         return students.stream()
                 .filter(s -> s.getCity() != null && s.getCity().equals(city))

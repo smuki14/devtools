@@ -44,11 +44,62 @@ Consider enabling configuration cache to speed up this build: https://docs.gradl
 
 
 ## Кодстайл-гайд
-До public List<Student> GETStudentsByCity(String city) {
-После   public List<Student> getStudentsByCity(String city) {
+RedundantImport
+До import java.util.List;
+import java.util.List;
+После import java.util.List;
+Почему:Дублирование строки чревато рассинхронизацией и багами
+https://checkstyle.org/checks/imports/redundantimport.html
 
+EmptyBlock
+До if (true) { }
+После строка была убрана (добаление было для выполнения задания).
+Почему: Чаще всего это признак недописанного кода
+https://checkstyle.org/checks/blocks/emptyblock.html
+
+MethodName
 До public void  add_Student (Student student) {
 После public void  addStudent (Student student) {
+Почему: Код не скомпилируется, а так же вызовет вопросу на равью
+https://checkstyle.org/checks/naming/methodname.html
+
+MethodName
+До public List<Student> GETStudentsByCity(String city) {
+После public List<Student> getStudentsByCity(String city) {
+Почему: В Java методы всегда начинаются со строчной (маленькой) буквы
+https://checkstyle.org/checks/naming/methodname.html
+
+
+NeedBraces
+До if (city == null || city.isEmpty())
+return new ArrayList<>();
+После if (city == null || city.isEmpty()) {
+return new ArrayList<>();
+}
+Почему:Отсутствие фигурных скобок сильно повышает риск ошибок
+https://checkstyle.org/checks/blocks/needbraces.html
+
+NeedBraces
+До   for (int i = 0; i < 5; i++)
+System.out.println(i);
+После   for (int i = 0; i < 5; i++) {
+System.out.println(i);
+}
+Почему:Отсутствие фигурных скобок сильно повышает риск ошибок
+https://checkstyle.org/checks/blocks/needbraces.html
+
+LineLength
+До String veryLongText = "This is a very long line that intentionally exceeds the Checkstyle LineLength limit of 120 characters to demonstrate how the rule works and catches this specific kind of formatting issue.";
+После строка была убрана (добаление было для выполнения задания).
+Почему: Затрудняет проведению ревью, при выводе не всегда понятно, какие именно были изменения
+https://checkstyle.org/checks/sizes/linelength.html
+
+WhitespaceAround
+До public int size(){
+После public int size(){
+Почему: Повышает читаемость кода
+https://checkstyle.org/checks/whitespace/whitespacearound.html
+
 
 ## Быстрая проверка
 
