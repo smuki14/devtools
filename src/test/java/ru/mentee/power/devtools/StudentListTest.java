@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import ru.mentee.power.devtools.student.student.Student;
+import ru.mentee.power.devtools.student.student.StudentList;
 
 class StudentListTest {
 

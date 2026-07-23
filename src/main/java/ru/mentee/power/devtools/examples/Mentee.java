@@ -1,5 +1,5 @@
 
-package ru.mentee.power.devtools.student;
+package ru.mentee.power.devtools.student.examples;
 
 public record Mentee(String name, String city, String goal, int completedLessons, int totalLessons) {
     public Mentee {
