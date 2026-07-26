@@ -1,5 +1,4 @@
-
-package ru.mentee.power.devtools.student.examples;
+package ru.mentee.power.examples;
 
 public class ProgressDemo {
     public static void main(String[] args) {

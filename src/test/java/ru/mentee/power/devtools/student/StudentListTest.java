@@ -1,12 +1,12 @@
-package ru.mentee.power.devtools.student;
+package ru.mentee.power;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import ru.mentee.power.devtools.student.student.Student;
-import ru.mentee.power.devtools.student.student.StudentList;
+import ru.mentee.power.devtools.student.Student;
+import ru.mentee.power.devtools.student.StudentList;
 
 class StudentListTest {
 

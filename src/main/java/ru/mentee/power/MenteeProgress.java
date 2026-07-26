@@ -1,4 +1,4 @@
-package ru.mentee.power.devtools.student.examples;
+package ru.mentee.power.examples;
 
 public record MenteeProgress(String menteeName, int sprintNumber, int plannedHoursPerWeek) {
 
