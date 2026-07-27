@@ -1,21 +1,34 @@
-package ru.mentee.power.devtools;
-
-import ru.mentee.power.devtools.progress.Mentee;
-
-import java.util.List;
+package ru.mentee.power.devtools.progress;
 
 public class ProgressTracker {
 
-    public String calculateTotalProgress(List<Mentee> mentees) {
+    /**
+     * Суммарный прогресс группы mentee.
+     */
+    public String calculateTotalProgress(Mentee[] mentees) {
         int totalCompleted = 0;
-        int totalLessons = 0;
+        int totalTotal = 0;
+        int index = 0;
 
-        for (Mentee m : mentees) {
-            totalCompleted += m.getCompletedLessons();
-            totalLessons += m.getTotalLessons();
+        while (index < mentees.length) {
+            Mentee mentee = mentees[index];
+            // Для record используем методы без префикса get: completedLessons(), totalLessons()
+            totalCompleted += mentee.completedLessons();
+            totalTotal += mentee.totalLessons();
+            index++;
         }
 
-        int remaining = totalLessons - totalCompleted;
-        return "Суммарно: пройдено " + totalCompleted + " из " + totalLessons + " уроков, осталось " + remaining + " уроков";
+        int remaining = totalTotal - totalCompleted;
+        return "Суммарно: пройдено " + totalCompleted + " из " + totalTotal + " уроков, осталось " + remaining + " уроков";
+    }
+
+    public static void main(String[] args) {
+        Mentee[] mentees = {
+                new Mentee("Иван", "Москва", "Backend разработка", 5, 12),
+                new Mentee("Мария", "Санкт-Петербург", "Fullstack", 8, 12),
+                new Mentee("Пётр", "Казань", "Java Backend", 12, 12)
+        };
+
+        System.out.println(new ProgressTracker().calculateTotalProgress(mentees));
     }
 }
