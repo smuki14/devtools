@@ -17,23 +17,53 @@ git config --global user.name/email - проверяем в Settings → Version
 Сценарий ручной проверки DVT-6
 
 Запуск приложения
-1. Открой Gradle Tool Window (`View → Tool Windows → Gradle`).
-2. Выполни: `devtools → Tasks → application → run`. (Если выдает ошибку (ссылается на другой файл),попробуй напроти public static.. нажать Run)
-3. В Run Tool Window должен быть вывод:
-   Executing ':examples.devtools.ru.mentee.power.ProgressTracker.main()'…
+> Task :run
+Суммарно: пройдено 25 из 36 уроков, осталось 11 уроков
 
-> Task :compileJava UP-TO-DATE
-> Task :processResources NO-SOURCE
-> Task :classes UP-TO-DATE
+BUILD SUCCESSFUL in 10s
+2 actionable tasks: 2 executed
 
-> Task :examples.devtools.ru.mentee.power.ProgressTracker.main()
-��������: �������� 25 �� 36 ������, �������� 11 ������
+> Task :test
 
-BUILD SUCCESSFUL in 447ms
-2 actionable tasks: 1 executed, 1 up-to-date
-Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.3.0/userguide/configuration_cache_enabling.html
-23:55:26: Execution finished ':examples.devtools.ru.mentee.power.ProgressTracker.main()'.
-   Суммарно: пройдено 25 из 36 уроков, осталось 11 уроков
+MenteeProgressTest > shouldFormatSummaryWhenProgressCreated() PASSED
+
+MenteeProgressTest > shouldDetectLackOfReadinessWhenHoursBelowThreshold() PASSED
+
+MenteeProgressTest > shouldDetectReadinessWhenHoursAboveThreshold() PASSED
+
+Тестирование ProgressTracker > Конструктор Mentee должен выбрасывать исключение, если completedLessons > totalLessons PASSED
+
+Тестирование ProgressTracker > Все mentee завершили курс — осталось 0 PASSED
+
+Тестирование ProgressTracker > Конструктор Mentee должен выбрасывать исключение при отрицательном completedLessons PASSED
+
+Тестирование ProgressTracker > Суммарный прогресс для нескольких mentee с разным прогрессом PASSED
+
+Тестирование ProgressTracker > Конструктор Mentee не должен выбрасывать исключение при корректных данных PASSED
+
+Тестирование ProgressTracker > Конструктор Mentee должен выбрасывать исключение, если completedLessons > totalLessons PASSED
+
+Тестирование ProgressTracker > Все mentee завершили курс — осталось 0 PASSED
+
+Тестирование ProgressTracker > Конструктор Mentee должен выбрасывать исключение при отрицательном completedLessons PASSED
+
+Тестирование ProgressTracker > Суммарный прогресс для нескольких mentee с разным прогрессом PASSED
+
+Тестирование ProgressTracker > Конструктор Mentee не должен выбрасывать исключение при корректных данных PASSED
+
+StudentListTest > addStudentAddsOneStudentListSizeIncreases() PASSED
+
+StudentListTest > addStudentAddsStudentToList() PASSED
+
+StudentListTest > getStudentsByCityWithNullOrEmptyCityReturnsEmptyList() PASSED
+
+StudentListTest > getStudentsByCityReturnsOnlyStudentsFromThatCity() PASSED
+
+BUILD SUCCESSFUL in 6s
+5 actionable tasks: 5 executed
+
+## Debug/Evaluate Expression
+Скриншот окна Evaluate Expression: вывод корректен, кодировка UTF-8 работает.
 
 Проверка DVT‑6
 

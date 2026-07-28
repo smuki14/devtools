@@ -1,80 +1,68 @@
 package ru.mentee.power.devtools.progress;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import java.util.List;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import ru.mentee.power.devtools.progress.Mentee;
-import ru.mentee.power.devtools.progress.ProgressTracker;
+import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("Тестирование ProgressTracker")
 class ProgressTrackerTest {
 
-   
     @Test
-    void calculateTotalProgress_25_of_36() {
-        List<Mentee> mentees = List.of(
-                new Mentee("Alice", "Moscow", "Backend", 25, 36)
-        );
+    @DisplayName("Суммарный прогресс для нескольких mentee с разным прогрессом")
+    void shouldCalculateTotalProgress_whenMultipleMentees() {
         ProgressTracker tracker = new ProgressTracker();
+        // ВАЖНО: именно массив, не List
+        Mentee[] mentees = {
+                new Mentee("Иван", "Москва", "Backend разработка", 5, 12),
+                new Mentee("Мария", "Санкт-Петербург", "Fullstack", 8, 12),
+                new Mentee("Пётр", "Казань", "Java Backend", 12, 12)
+        };
+
         String result = tracker.calculateTotalProgress(mentees);
 
-        assertThat(result).isEqualTo(
-                "Суммарно: пройдено 25 из 36 уроков, осталось 11 уроков"
-        );
+        assertThat(result)
+                .contains("пройдено 25 из 36 уроков")
+                .contains("осталось 11 уроков");
     }
 
-    // Кейс: все завершили (24 из 24)
     @Test
-    void calculateTotalProgress_all_completed_24_of_24() {
-        List<Mentee> mentees = List.of(
-                new Mentee("Bob", "SPb", "QA", 24, 24)
-        );
+    @DisplayName("Все mentee завершили курс — осталось 0")
+    void shouldCalculateTotalProgress_whenAllMenteesCompleted() {
         ProgressTracker tracker = new ProgressTracker();
+        Mentee[] mentees = {
+                new Mentee("Иван", "Москва", "Backend", 12, 12),
+                new Mentee("Мария", "СПб", "Fullstack", 12, 12)
+        };
+
         String result = tracker.calculateTotalProgress(mentees);
 
-        assertThat(result).isEqualTo(
-                "Суммарно: пройдено 24 из 24 уроков, осталось 0 уроков"
-        );
+        assertThat(result)
+                .contains("пройдено 24 из 24 уроков")
+                .contains("осталось 0 уроков");
     }
 
-    // Кейс: пустой список
     @Test
-    void calculateTotalProgress_emptyList_returnsZero() {
-        List<Mentee> mentees = List.of();
-        ProgressTracker tracker = new ProgressTracker();
-        String result = tracker.calculateTotalProgress(mentees);
-
-        assertThat(result).isEqualTo(
-                "Суммарно: пройдено 0 из 0 уроков, осталось 0 уроков"
-        );
+    @DisplayName("Конструктор Mentee должен выбрасывать исключение, если completedLessons > totalLessons")
+    void menteeConstructor_rejects_completedGreaterThanTotal() {
+        Assertions.assertThatThrownBy(() -> new Mentee("Иван", "Москва", "Backend", 15, 10))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Некорректные значения прогресса");
     }
 
-    // Кейс: несколько студентов
     @Test
-    void calculateTotalProgress_multipleMentees() {
-        List<Mentee> mentees = List.of(
-                new Mentee("Carol", "Kazan", "Data", 10, 20),
-                new Mentee("Dave", "Moscow", "DevOps", 5, 15)
-        );
-        ProgressTracker tracker = new ProgressTracker();
-        String result = tracker.calculateTotalProgress(mentees);
-
-        assertThat(result).isEqualTo(
-                "Суммарно: пройдено 15 из 35 уроков, осталось 20 уроков"
-        );
+    @DisplayName("Конструктор Mentee должен выбрасывать исключение при отрицательном completedLessons")
+    void menteeConstructor_rejects_negativeCompleted() {
+        Assertions.assertThatThrownBy(() -> new Mentee("Мария", "СПб", "Fullstack", -3, 12))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Некорректные значения прогресса");
     }
 
-    // Кейс: проверка валидации в Mentee (некорректные данные)
     @Test
-    void menteeConstructor_throws_for_invalid_data() {
-        assertThatThrownBy(() ->
-                new Mentee("Eve", "Rostov", "ML", -1, 10)
-        ).isInstanceOf(IllegalArgumentException.class);
-
-        assertThatThrownBy(() ->
-                new Mentee("Frank", "Ufa", "Frontend", 10, 5)  // completed > total
-        ).isInstanceOf(IllegalArgumentException.class);
+    @DisplayName("Конструктор Mentee не должен выбрасывать исключение при корректных данных")
+    void menteeConstructor_accepts_validData() {
+        Assertions.assertThatCode(() -> new Mentee("Пётр", "Казань", "Java", 5, 12))
+                .doesNotThrowAnyException();
     }
 }

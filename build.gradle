@@ -19,7 +19,7 @@ java {
 }
 
 application {
-    mainClass = 'ru.mentee.power.devtools.examples.ProgressTracker'
+    mainClass = 'ru.mentee.power.devtools.progress.ProgressTracker'
 }
 
 checkstyle {
@@ -53,6 +53,15 @@ jacocoTestReport {
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
     }
+}
+
+
+tasks.withType(JavaExec) {
+    systemProperty 'file.encoding', 'UTF-8'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 check {
