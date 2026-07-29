@@ -69,7 +69,7 @@ BUILD SUCCESSFUL in 6s
 
 1. Открыть `ProgressTracker.java`, поставить breakpoint на строку внутри цикла `while`.
 2. Запустить в режиме Debug (значок 🐞 рядом с `main`).
-3. В момент остановки открыть Evaluate Expression (Alt+F8) и проверить выражение `mentees[0]`.
+3. В момент остановки открыть Evaluate Expression (Alt+F8) и проверить выражение `totalCompleted + mentees[index].completedLessons()` — после 2-й итерации оно равно `25`
 4. В панели Variables убедиться, что `totalCompleted` меняется при нажатии F8.
 
 
