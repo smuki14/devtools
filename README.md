@@ -157,3 +157,11 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 - Все нарушения исправлены.
 - `Total violations: 0`.
 - Отчёт: `build/reports/checkstyle/main.html`.
+
+## JaCoCo: покрытие 88% 
+
+1. Запуск верификации: `./gradlew jacocoTestCoverageVerification`.
+2. Первоначальный результат: покрытие ниже 80% (были непокрытые ветки в `ProgressTracker` и нулевое покрытие 'ProgressDemo').
+3. Исправление: добавлены тесты в `ProgressLoopTest.java`, в build.gradle внесено правило исключения 'ProgressDemo' из покрытия.
+4. Итоговый результат: покрытие 88%, сборка успешна.
+5. Отчёт: `build/reports/jacoco/test/html/index.html`.
