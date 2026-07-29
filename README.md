@@ -69,7 +69,7 @@ BUILD SUCCESSFUL in 6s
 
 1. Открыть `ProgressTracker.java`, поставить breakpoint на строку внутри цикла `while`.
 2. Запустить в режиме Debug (значок 🐞 рядом с `main`).
-3. В момент остановки открыть Evaluate Expression (Alt+F8) и проверить выражение `mentees[0]`.
+3. В момент остановки открыть Evaluate Expression (Alt+F8) и проверить выражение `totalCompleted + mentees[index].completedLessons()` — после 2-й итерации оно равно `25`
 4. В панели Variables убедиться, что `totalCompleted` меняется при нажатии F8.
 
 
@@ -138,3 +138,43 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 ./gradlew checkstyleMain 
 ./gradlew test
 ./gradlew jacocoTestCoverageVerification
+
+
+## Self-review: Debug, фактические значения и путь «упало → починил»
+
+### Фактическое значение students.size() из Debug
+Для проверки логики добавления студентов был выполнен Debug теста `StudentListTest.testAddStudent`.
+
+- Breakpoint установлен на строке внутри метода `StudentList.addStudent` (перед `students.add(student)`).
+- Запуск: Debug для теста `StudentListTest`.
+- Проверка через Evaluate Expression: выражение `students.size()` дало следующие значения:
+  - Перед первым добавлением: students.size() = 0.
+  - После первого добавления : students.size() = 1.
+  - После второго добавления: students.size() = 2.
+
+### Checkstyle: подтверждение severity=error и severity=warning
+
+### Демонстрация warning (LineLength)
+- В ProgressTracker была создана строка длиной 123 символа.
+- Команда: `./gradlew checkstyleMain`.
+- Результат: предупреждение `LineLength` (severity=warning), сборка прошла.
+- Исправление: строка исправлена, нарушений нет.
+
+### Демонстрация error (NeedBraces)
+- В ProgressTracker был создан `if` без фигурных скобок.
+- Команда: `./gradlew checkstyleMain`.
+- Результат: ошибка `NeedBraces` (severity=error), сборка упала.
+- Исправление: добавлены фигурные скобки `{}`, сборка чистая.
+
+### Финальный статус
+- Все нарушения исправлены.
+- `Total violations: 0`.
+- Отчёт: `build/reports/checkstyle/main.html`.
+
+## JaCoCo: покрытие 88% 
+
+1. Запуск верификации: `./gradlew jacocoTestCoverageVerification`.
+2. Первоначальный результат: покрытие ниже 80% (были непокрытые ветки в `ProgressTracker` и нулевое покрытие 'ProgressDemo').
+3. Исправление: добавлены тесты в `ProgressLoopTest.java`, в build.gradle внесено правило исключения 'ProgressDemo' из покрытия.
+4. Итоговый результат: покрытие 88%, сборка успешна.
+5. Отчёт: `build/reports/jacoco/test/html/index.html`.

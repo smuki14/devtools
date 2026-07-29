@@ -1,48 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
-    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
     <property name="charset" value="UTF-8"/>
+    <!-- severity на уровне Checker можно оставить error — он задаёт дефолт, но мы переопределим ниже -->
     <property name="severity" value="error"/>
     <property name="fileExtensions" value="java"/>
 
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
+        <!-- Табы — это критично, пусть будет error по умолчанию -->
+        <property name="severity" value="error"/>
     </module>
 
+    <!-- Длина строки — только предупреждение: не ломаем сборку из‑за переноса -->
     <module name="LineLength">
         <property name="max" value="120"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+        <property name="severity" value="warning"/>
     </module>
 
     <module name="TreeWalker">
-        <!-- Именование -->
-        <module name="MethodName"/>
-        <module name="MemberName"/>
-        <module name="TypeName"/>
-        <module name="ConstantName"/>
+        <!-- Именование — предупреждения: стиль важен, но сборка не должна падать только из‑за имени -->
+        <module name="MethodName">
+            <property name="severity" value="warning"/>
+        </module>
+        <module name="MemberName">
+            <property name="severity" value="warning"/>
+        </module>
+        <module name="TypeName">
+            <property name="severity" value="warning"/>
+        </module>
+        <module name="ConstantName">
+            <property name="severity" value="warning"/>
+        </module>
 
-        <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <!-- Импорты — ошибки: лишние/неиспользуемые импорты могут скрывать реальные проблемы -->
+        <module name="RedundantImport">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="UnusedImports">
+            <property name="severity" value="error"/>
+        </module>
         <module name="CustomImportOrder">
             <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="separateLineBetweenGroups" value="true"/>
             <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
+            <property name="severity" value="error"/>
         </module>
 
+        <!-- Скобки обязательны — это ошибка: отсутствие скобок часто приводит к багам -->
         <module name="NeedBraces">
             <property name="tokens" value="LITERAL_IF,LITERAL_FOR,LITERAL_WHILE,LITERAL_DO,LITERAL_ELSE"/>
             <property name="allowSingleLineStatement" value="false"/>
+            <property name="severity" value="error"/>
         </module>
 
+        <!-- WhitespaceAround — предупреждение: стиль пробелов вокруг операторов -->
         <module name="WhitespaceAround">
-            <!-- Не добавляй сюда EQUALS отдельно — это и вызывает ошибку в 10.x -->
+            <property name="severity" value="warning"/>
         </module>
 
+        <!-- Пустые блоки — ошибка: пустой catch без обработки скрывает исключения -->
         <module name="EmptyBlock">
             <property name="option" value="text"/>
             <property name="tokens" value="LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_TRY,LITERAL_WHILE"/>
+            <property name="severity" value="error"/>
         </module>
     </module>
 </module>
