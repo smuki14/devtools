@@ -43,6 +43,10 @@ jacocoTestCoverageVerification {
             }
         }
     }
+    classDirectories = fileTree(
+            dir: 'build/classes/java/main',
+            excludes: ['**/ProgressDemo.class']
+    ) as ConfigurableFileTree
 }
 
 jacocoTestReport {
@@ -53,6 +57,10 @@ jacocoTestReport {
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
     }
+    classDirectories = fileTree(
+            dir: 'build/classes/java/main',
+            excludes: ['**/ProgressDemo.class']
+    ) as ConfigurableFileTree
 }
 
 

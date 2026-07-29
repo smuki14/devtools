@@ -12,10 +12,12 @@ public class StudentList {
     }
 
     public int size() {
+
         return students.size();
     }
 
     public List<Student> getAll() {
+
         return new ArrayList<>(students);
     }
 
@@ -24,8 +26,6 @@ public class StudentList {
         if (city == null || city.isEmpty()) {
             return new ArrayList<>();
         }
-
-
 
 
         return students.stream()

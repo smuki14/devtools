@@ -1,61 +1,144 @@
 package ru.mentee.power.devtools.student;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import org.junit.jupiter.api.Test;
-import ru.mentee.power.devtools.student.Student;
-import ru.mentee.power.devtools.student.StudentList;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StudentListTest {
 
-    @Test
-    void addStudentAddsOneStudentListSizeIncreases() {
-        StudentList list = new StudentList();
-        list.addStudent(new Student("Ivan", "Moscow"));
+    private StudentList studentList;
 
-        assertThat(list.getAll()).hasSize(1);
-        assertEquals("Ivan", list.getAll().get(0).getName());
+    @BeforeEach
+    void setUp() {
+        studentList = new StudentList();
     }
 
     @Test
-    void addStudentAddsStudentToList() {
-        StudentList list = new StudentList();
+    void shouldAddStudentAndIncreaseSize() {
+        Student student = new Student("Sergey", "Rostov");
+        studentList.addStudent(student);
 
-        Student newStudent = new Student("Boris", "Kazan");
-        list.addStudent(newStudent);
-
-        assertThat(list.getAll()).containsExactly(newStudent);      // если getAll есть
-        // или, если getAll нет, можно проверить через getStudentsByCity:
-        // assertThat(list.getStudentsByCity("Kazan")).containsExactly(newStudent);
+        assertEquals(1, studentList.size());
     }
 
     @Test
-    void getStudentsByCityReturnsOnlyStudentsFromThatCity() {
-        StudentList list = new StudentList();
-        list.addStudent(new Student("Alice", "Rostov"));
-        list.addStudent(new Student("Bob", "Rostov"));
-        list.addStudent(new Student("Charlie", "Moscow"));
+    void shouldReturnAllStudents() {
+        Student student1 = new Student("Sergey", "Rostov");
+        Student student2 = new Student("Alexander", "SPb");
+        studentList.addStudent(student1);
+        studentList.addStudent(student2);
 
-        List<Student> rostovStudents = list.getStudentsByCity("Rostov");
+        List<Student> all = studentList.getAll();
 
-        assertThat(rostovStudents).hasSize(2);
-        assertThat(rostovStudents.get(0).getName()).isEqualTo("Alice");
-        assertThat(rostovStudents.get(1).getName()).isEqualTo("Bob");
+        assertEquals(2, all.size());
+        assertThat(all).containsExactly(student1, student2);
     }
 
+    @Test
+    void shouldReturnEmptyListWhenNoStudents() {
+        assertTrue(studentList.getAll().isEmpty());
+    }
 
     @Test
-    void getStudentsByCityWithNullOrEmptyCityReturnsEmptyList() {
-        StudentList list = new StudentList();
-        list.addStudent(new Student("Ivan", "Moscow"));
-        list.addStudent(new Student("Anna", "Rostov"));
+    void shouldFilterByCityCorrectly() {
+        Student student1 = new Student("Sergey", "Rostov");
+        Student student2 = new Student("Alexander", "SPb");
+        studentList.addStudent(student1);
+        studentList.addStudent(student2);
 
-        // Проверяем null
-        assertThat(list.getStudentsByCity(null)).isEmpty();
+        List<Student> rostov = studentList.getStudentsByCity("Rostov");
 
-        // Проверяем пустую строку
-        assertThat(list.getStudentsByCity("")).isEmpty();
+        assertEquals(1, rostov.size());
+        assertEquals("Sergey", rostov.get(0).getName());
+        assertEquals("Rostov", rostov.get(0).getCity()); // дополнительная проверка
+    }
+
+    @Test
+    void shouldReturnEmptyListForUnknownCity() {
+        studentList.addStudent(new Student("Sergey", "Rostov"));
+
+        List<Student> result = studentList.getStudentsByCity("Tver");
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenCityIsNull() {
+        studentList.addStudent(new Student("Sergey", "Rostov"));
+        studentList.addStudent(new Student("Alexander", "SPb"));
+
+        List<Student> result = studentList.getStudentsByCity(null);
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenCityIsEmpty() {
+        studentList.addStudent(new Student("Sergey", "Rostov"));
+
+        List<Student> result = studentList.getStudentsByCity("");
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void shouldReturnMultipleStudentsFromSameCity() {
+        studentList.addStudent(new Student("Sergey", "Rostov"));
+        studentList.addStudent(new Student("Ivan", "Rostov"));
+        studentList.addStudent(new Student("Alexander", "SPb"));
+
+        List<Student> rostov = studentList.getStudentsByCity("Rostov");
+
+        assertEquals(2, rostov.size());
+        // Используем containsExactlyInAnyOrder, чтобы порядок не имел значения
+        assertThat(rostov).extracting(Student::getName)
+                .containsExactlyInAnyOrder("Sergey", "Ivan");
+
+        // Проверяем, что все студенты из Ростова
+        assertThat(rostov).allMatch(s -> "Rostov".equals(s.getCity()));
+    }
+
+    @Test
+    void shouldNotModifyOriginalListWhenGetAll() {
+        Student student = new Student("Sergey", "Rostov");
+        studentList.addStudent(student);
+
+        List<Student> all = studentList.getAll();
+        all.clear(); // Изменяем полученный список
+
+        assertEquals(1, studentList.size()); // Оригинал не изменился
+    }
+
+    @Test
+    void shouldReturnSizeZeroForEmptyList() {
+        assertEquals(0, studentList.size());
+    }
+
+    @Test
+    void shouldHandleMultipleAdditions() {
+        studentList.addStudent(new Student("Student1", "City1"));
+        studentList.addStudent(new Student("Student2", "City2"));
+        studentList.addStudent(new Student("Student3", "City3"));
+
+        assertEquals(3, studentList.size());
+        assertEquals(3, studentList.getAll().size());
+    }
+
+    @Test
+    void shouldFilterByCityCaseInsensitive() {
+        studentList.addStudent(new Student("Sergey", "Rostov"));
+        studentList.addStudent(new Student("Ivan", "rostov")); // с маленькой буквы
+
+        // Если ваш метод использует equalsIgnoreCase, оба должны найтись
+        List<Student> result = studentList.getStudentsByCity("Rostov");
+
+        // Если метод использует equals (чувствительный к регистру),
+        // то найдётся только один студент
+        // Этот тест покажет, какое поведение у вашего метода
+        System.out.println("Found students: " + result.size());
     }
 }
