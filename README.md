@@ -138,3 +138,22 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 ./gradlew checkstyleMain 
 ./gradlew test
 ./gradlew jacocoTestCoverageVerification
+
+## Checkstyle: подтверждение severity=error и severity=warning
+
+### Демонстрация warning (LineLength)
+- В ProgressTracker была создана строка длиной 123 символа.
+- Команда: `./gradlew checkstyleMain`.
+- Результат: предупреждение `LineLength` (severity=warning), сборка прошла.
+- Исправление: строка исправлена, нарушений нет.
+
+### Демонстрация error (NeedBraces)
+- В ProgressTracker был создан `if` без фигурных скобок.
+- Команда: `./gradlew checkstyleMain`.
+- Результат: ошибка `NeedBraces` (severity=error), сборка упала.
+- Исправление: добавлены фигурные скобки `{}`, сборка чистая.
+
+### Финальный статус
+- Все нарушения исправлены.
+- `Total violations: 0`.
+- Отчёт: `build/reports/checkstyle/main.html`.
