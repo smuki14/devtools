@@ -12,5 +12,3 @@ out/
 # OS files
 .DS_Store
 Thumbs.db
-
-# Sanity check rule for DVT-5
