@@ -139,7 +139,20 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 ./gradlew test
 ./gradlew jacocoTestCoverageVerification
 
-## Checkstyle: подтверждение severity=error и severity=warning
+
+## Self-review: Debug, фактические значения и путь «упало → починил»
+
+### Фактическое значение students.size() из Debug
+Для проверки логики добавления студентов был выполнен Debug теста `StudentListTest.testAddStudent`.
+
+- Breakpoint установлен на строке внутри метода `StudentList.addStudent` (перед `students.add(student)`).
+- Запуск: Debug для теста `StudentListTest`.
+- Проверка через Evaluate Expression: выражение `students.size()` дало следующие значения:
+  - Перед первым добавлением: students.size() = 0.
+  - После первого добавления : students.size() = 1.
+  - После второго добавления: students.size() = 2.
+
+### Checkstyle: подтверждение severity=error и severity=warning
 
 ### Демонстрация warning (LineLength)
 - В ProgressTracker была создана строка длиной 123 символа.
