@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - 'feature/**'
+      - 'feature/DVT-8-ci'
   pull_request:
     branches:
       - master
