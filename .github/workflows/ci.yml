@@ -16,15 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '25'   # <-- поставь свою версию (17, 21, 25)
           cache: 'gradle'
-
-      - name: Make gradlew executable
-        run: chmod +x gradlew
 
       - name: Checkstyle
         run: ./gradlew --no-daemon checkstyleMain

@@ -177,4 +177,15 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 2. Первоначальный результат: покрытие ниже 80% (были непокрытые ветки в `ProgressTracker` и нулевое покрытие 'ProgressDemo').
 3. Исправление: добавлены тесты в `ProgressLoopTest.java`, в build.gradle внесено правило исключения 'ProgressDemo' из покрытия.
 4. Итоговый результат: покрытие 88%, сборка успешна.
-5. Отчёт: `build/reports/jacoco/test/html/index.html`.
+5. Отчёт: `build/reports/jacgit cherry-pickoco/test/html/index.html`.
+
+
+## Ошибка:
+https://github.com/smuki14/devtools/actions/runs/30572200312
+## Исправление:
+https://github.com/smuki14/devtools/actions/runs/30573721946
+
+## Бейдж статус CI:
+[![Java CI](https://github.com/smuki14/devtools/actions/workflows/ci.yml/badge.svg)](https://github.com/smuki14/devtools/actions/workflows/ci.yml)
+
+
