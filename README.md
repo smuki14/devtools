@@ -187,3 +187,5 @@ https://github.com/smuki14/devtools/actions/runs/30573721946
 
 ## Бейдж статус CI:
 [![Java CI](https://github.com/smuki14/devtools/actions/workflows/ci.yml/badge.svg)](https://github.com/smuki14/devtools/actions/workflows/ci.yml)
+
+
