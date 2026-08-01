@@ -1,17 +1,17 @@
 package ru.mentee.power.devtools.progress;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Тестирование ProgressTracker")
 class ProgressLoopTest {
 
     @Test
     @DisplayName("Суммарный прогресс для нескольких mentee с разным прогрессом")
-    void shouldCalculateTotalProgress_whenMultipleMentees() {
+    void shouldCalculateTotalProgressWhenMultipleMentees() {
         ProgressTracker tracker = new ProgressTracker();
         // ВАЖНО: именно массив, не List
         Mentee[] mentees = {
@@ -29,7 +29,7 @@ class ProgressLoopTest {
 
     @Test
     @DisplayName("Все mentee завершили курс — осталось 0")
-    void shouldCalculateTotalProgress_whenAllMenteesCompleted() {
+    void shouldCalculateTotalProgressWhenAllMenteesCompleted() {
         ProgressTracker tracker = new ProgressTracker();
         Mentee[] mentees = {
                 new Mentee("Иван", "Москва", "Backend", 12, 12),
@@ -45,7 +45,7 @@ class ProgressLoopTest {
 
     @Test
     @DisplayName("Конструктор Mentee должен выбрасывать исключение, если completedLessons > totalLessons")
-    void menteeConstructor_rejects_completedGreaterThanTotal() {
+    void menteeConstructorRejectsCompletedGreaterThanTotal() {
         Assertions.assertThatThrownBy(() -> new Mentee("Иван", "Москва", "Backend", 15, 10))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Некорректные значения прогресса");
@@ -53,7 +53,7 @@ class ProgressLoopTest {
 
     @Test
     @DisplayName("Конструктор Mentee должен выбрасывать исключение при отрицательном completedLessons")
-    void menteeConstructor_rejects_negativeCompleted() {
+    void menteeConstructorRejectsNegativeCompleted() {
         Assertions.assertThatThrownBy(() -> new Mentee("Мария", "СПб", "Fullstack", -3, 12))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Некорректные значения прогресса");
@@ -61,7 +61,7 @@ class ProgressLoopTest {
 
     @Test
     @DisplayName("Конструктор Mentee не должен выбрасывать исключение при корректных данных")
-    void menteeConstructor_accepts_validData() {
+    void menteeConstructorAcceptsValidData() {
         Assertions.assertThatCode(() -> new Mentee("Пётр", "Казань", "Java", 5, 12))
                 .doesNotThrowAnyException();
     }
