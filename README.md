@@ -282,4 +282,12 @@ ci.yml не возможно
 
 **Предложение:** Необходимо исправить на примере: Было - shouldCalculateTotalProgress_whenMultipleMentees Стало - shouldCalculateTotalProgressWhenMultipleMentees
 
+## Фпшеормат сообщения для треда Code Review
+
+- [Номер урока]: [Краткое название]
+- Репозиторий: [ссылка на GitHub репозиторий]
+- Pull Request: [ссылка на PR]
+- Статус: готова / есть вопрос
+@dev_tools
+
 
