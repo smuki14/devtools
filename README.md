@@ -283,3 +283,139 @@ ci.yml не возможно
 **Предложение:** Необходимо исправить на примере: Было - shouldCalculateTotalProgress_whenMultipleMentees Стало - shouldCalculateTotalProgressWhenMultipleMentees
 
 
+## Информационный поиск — результаты DVT-11
+
+### Запросы и источники
+
+| № | Запрос | Операторы | Официальный источник | Альтернатива | Статус | Дата |
+|---|--------|-----------|----------------------|--------------|--------|------|
+| 1 | | | | | | |
+| 2 | | | | | | |
+| 3 | | | | | | |
+
+### AI-промпты и сравнение
+
+#### Промпт 1: План решения
+Задача / Контекст / Ограничения / Ожидаемый результат / Критерии успеха
+AI-1 (...):
+AI-2 (...):
+Сравнение: что совпало, что различалось, что выбрал и почему
+
+#### Промпт 2: Проверка кода
+Код для проверки:
+AI-1 (...):
+AI-2 (...):
+Сравнение:
+
+### Запросы и источники
+
+| № | Запрос | Операторы | Официальный источник | Альтернатива | Статус | Дата |
+|---|--------|-----------|----------------------|--------------|--------|------|
+| 1 |Поиск версии Lombok  |site:search.maven.org "lombok |search.maven.org |mvnrepository.com  |200 OK |02.08.2026  |
+| 2 |Java Stream API |	site:docs.oracle.com "stream api" intitle:api |docs.oracle.com (Java 17) |docs.oracle.com (Java 11) |200 OK |02.08.2026 |
+| 3 |Горячие клавиши IDEA |site:www.jetbrains.com/help "keymap" |jetbrains.com/help |	Help → Keymap Reference (встроенная справка)|200 OK |02.08.2026 |
+
+
+#### Промпт 1: Проверка кода
+Код для проверки:
+DeepSeek: (Я написал код для фильтрации студентов по городу.
+Вот код:package ru.mentee.power.devtools.student;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StudentList {
+    private final List<Student> students = new ArrayList<>();
+
+    public void addStudent (Student student) {
+        students.add(student);
+    }
+
+    public int size() {
+
+        return students.size();
+    }
+
+    public List<Student> getAll() {
+
+        return new ArrayList<>(students);
+    }
+
+    public List<Student> getStudentsByCity(String city) {
+
+        if (city == null || city.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+
+        return students.stream()
+                .filter(s -> s.getCity() != null && s.getCity().equals(city))
+                .collect(Collectors.toList());
+    }
+}
+Проверь на: логические ошибки (граничные случаи, null); Java Code Conventions; производительность.
+
+НЕ переписывай — укажи проблемы и предложи, как исправить.)
+
+Алиса: (Я написал код для фильтрации студентов по городу.
+Вот код:package ru.mentee.power.devtools.student;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StudentList {
+    private final List<Student> students = new ArrayList<>();
+
+    public void addStudent (Student student) {
+        students.add(student);
+    }
+
+    public int size() {
+
+        return students.size();
+    }
+
+    public List<Student> getAll() {
+
+        return new ArrayList<>(students);
+    }
+
+    public List<Student> getStudentsByCity(String city) {
+
+        if (city == null || city.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+
+        return students.stream()
+                .filter(s -> s.getCity() != null && s.getCity().equals(city))
+                .collect(Collectors.toList());
+    }
+}
+Проверь на: логические ошибки (граничные случаи, null); Java Code Conventions; производительность.
+
+НЕ переписывай — укажи проблемы и предложи, как исправить.)
+
+Сравнение: Так же как и в Плане решения, DeepSeek более конкретизированный. Все по существу, поэтапно, с резюмированием в конце. Алиса выдала ту же информацию, но много текса, который в данном случае только мешает.
+
+#### Промпт 2: План решения
+Задача / Контекст / Ограничения / Ожидаемый результат / Критерии успеха
+
+DeepSeek (Задача: Реализовать метод calculateTotalProgress(Mentee[] mentees), который возвращает строку с суммарным прогрессом всех Mentee.
+Контекст: Java 25, Gradle 8.8. Есть класс Mentee с полями completedLessons и totalLessons.
+Ограничения: нельзя использовать сторонние библиотеки для форматирования строк.
+Что нужно: план из 3-5 шагов с объяснением «почему» и какие граничные случаи учесть. НЕ пиши код — реализую сам.
+Критерии успеха: метод должен корректно работать для пустого массива, массива из 1 и из 10+ Mentee.)
+
+Алиса: (Задача: Реализовать метод calculateTotalProgress(Mentee[] mentees), который возвращает строку с суммарным прогрессом всех Mentee.
+Контекст: Java 25, Gradle 8.8. Есть класс Mentee с полями completedLessons и totalLessons.
+Ограничения: нельзя использовать сторонние библиотеки для форматирования строк.
+Что нужно: план из 3-5 шагов с объяснением «почему» и какие граничные случаи учесть. НЕ пиши код — реализую сам.
+Критерии успеха: метод должен корректно работать для пустого массива, массива из 1 и из 10+ Mentee.)
+
+Сравнение: Использовав два ассиестента (DeepSeek и Алиса)нашел два различия. В DeepSeek ответы более конкретизированные. В целом и тот и тот ассистент предоставили подробные ответы. На примере данного запроса, мне кажется что тут дело вкуса. Алиса выдает сначало много
+текста, как бы вводит тебя в курс происходящего, впоследствии переходя к сути. DeepSeek же, как и написал выше, более конкретен в своем ответе. Все описано по пунктно, нет воды.
+Если опираться на свой опыт использования двух ассистентов (а именно их я использовал при прохождении 3 Спринтов), то в последнее время предпочтения отдаю больше DeepSeek, из-за его конкретики и минимум текса. Все по существу.
+
