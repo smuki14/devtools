@@ -6,6 +6,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 @DisplayName("Тестирование ProgressTracker")
 class ProgressLoopTest {
 
@@ -13,7 +16,6 @@ class ProgressLoopTest {
     @DisplayName("Суммарный прогресс для нескольких mentee с разным прогрессом")
     void shouldCalculateTotalProgressWhenMultipleMentees() {
         ProgressTracker tracker = new ProgressTracker();
-        // ВАЖНО: именно массив, не List
         Mentee[] mentees = {
                 new Mentee("Иван", "Москва", "Backend разработка", 5, 12),
                 new Mentee("Мария", "Санкт-Петербург", "Fullstack", 8, 12),
@@ -64,5 +66,21 @@ class ProgressLoopTest {
     void menteeConstructorAcceptsValidData() {
         Assertions.assertThatCode(() -> new Mentee("Пётр", "Казань", "Java", 5, 12))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    @DisplayName("Метод main должен запускаться без ошибок")
+    void shouldRunMainWithoutErrors() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        try {
+            ProgressTracker.main(new String[]{});
+        } finally {
+            System.setOut(originalOut);
+        }
+
+        assertThat(outContent.toString()).isNotEmpty();
     }
 }
