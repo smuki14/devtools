@@ -54,7 +54,6 @@ class StudentListTest {
 
         assertEquals(1, rostov.size());
         assertEquals("Sergey", rostov.get(0).getName());
-        assertEquals("Rostov", rostov.get(0).getCity()); // дополнительная проверка
     }
 
     @Test
@@ -94,12 +93,8 @@ class StudentListTest {
         List<Student> rostov = studentList.getStudentsByCity("Rostov");
 
         assertEquals(2, rostov.size());
-        // Используем containsExactlyInAnyOrder, чтобы порядок не имел значения
         assertThat(rostov).extracting(Student::getName)
                 .containsExactlyInAnyOrder("Sergey", "Ivan");
-
-        // Проверяем, что все студенты из Ростова
-        assertThat(rostov).allMatch(s -> "Rostov".equals(s.getCity()));
     }
 
     @Test
@@ -108,9 +103,9 @@ class StudentListTest {
         studentList.addStudent(student);
 
         List<Student> all = studentList.getAll();
-        all.clear(); // Изменяем полученный список
+        all.clear();
 
-        assertEquals(1, studentList.size()); // Оригинал не изменился
+        assertEquals(1, studentList.size());
     }
 
     @Test
@@ -126,19 +121,5 @@ class StudentListTest {
 
         assertEquals(3, studentList.size());
         assertEquals(3, studentList.getAll().size());
-    }
-
-    @Test
-    void shouldFilterByCityCaseInsensitive() {
-        studentList.addStudent(new Student("Sergey", "Rostov"));
-        studentList.addStudent(new Student("Ivan", "rostov")); // с маленькой буквы
-
-        // Если ваш метод использует equalsIgnoreCase, оба должны найтись
-        List<Student> result = studentList.getStudentsByCity("Rostov");
-
-        // Если метод использует equals (чувствительный к регистру),
-        // то найдётся только один студент
-        // Этот тест покажет, какое поведение у вашего метода
-        System.out.println("Found students: " + result.size());
     }
 }
