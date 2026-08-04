@@ -1,5 +1,4 @@
 package ru.mentee.power.devtools.progress;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
