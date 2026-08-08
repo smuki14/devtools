@@ -14,7 +14,7 @@ git config --global user.name/email - проверяем в Settings → Version
 В IDE: Commit Tool Window (Ctrl+K) — списки Unversioned/Changes должны быть пустыми или содержать только ожидаемые файлы.
 В CLI: git status — должен показывать «nothing to commit, working tree clean»
 
-Сценарий ручной проверки DVT-6
+## Сценарий ручной проверки DVT-6
 
 Запуск приложения
 > Task :run
@@ -65,7 +65,7 @@ BUILD SUCCESSFUL in 6s
 ## Debug/Evaluate Expression
 Скриншот окна Evaluate Expression: вывод корректен, кодировка UTF-8 работает.
 
-Проверка DVT‑6
+### Проверка DVT‑6
 
 1. Открыть `ProgressTracker.java`, поставить breakpoint на строку внутри цикла `while`.
 2. Запустить в режиме Debug (значок 🐞 рядом с `main`).
@@ -74,33 +74,33 @@ BUILD SUCCESSFUL in 6s
 
 
 ## Кодстайл-гайд
-RedundantImport
+**RedundantImport**
 До import java.util.List;
 import java.util.List;
 После import java.util.List;
 Почему:Дублирование строки чревато рассинхронизацией и багами
 https://checkstyle.org/checks/imports/redundantimport.html
 
-EmptyBlock
+**EmptyBlock**
 До if (true) { }
 После строка была убрана (добаление было для выполнения задания).
 Почему: Чаще всего это признак недописанного кода
 https://checkstyle.org/checks/blocks/emptyblock.html
 
-MethodName
+**MethodName**
 До public void  add_Student (Student student) {
 После public void  addStudent (Student student) {
 Почему: Код не скомпилируется, а так же вызовет вопросу на равью
 https://checkstyle.org/checks/naming/methodname.html
 
-MethodName
+**MethodName**
 До public List<Student> GETStudentsByCity(String city) {
 После public List<Student> getStudentsByCity(String city) {
 Почему: В Java методы всегда начинаются со строчной (маленькой) буквы
 https://checkstyle.org/checks/naming/methodname.html
 
 
-NeedBraces
+**NeedBraces**
 До if (city == null || city.isEmpty())
 return new ArrayList<>();
 После if (city == null || city.isEmpty()) {
@@ -109,7 +109,7 @@ return new ArrayList<>();
 Почему:Отсутствие фигурных скобок сильно повышает риск ошибок
 https://checkstyle.org/checks/blocks/needbraces.html
 
-NeedBraces
+**NeedBraces**
 До   for (int i = 0; i < 5; i++)
 System.out.println(i);
 После   for (int i = 0; i < 5; i++) {
@@ -118,13 +118,13 @@ System.out.println(i);
 Почему:Отсутствие фигурных скобок сильно повышает риск ошибок
 https://checkstyle.org/checks/blocks/needbraces.html
 
-LineLength
+**LineLength**
 До String veryLongText = "This is a very long line that intentionally exceeds the Checkstyle LineLength limit of 120 characters to demonstrate how the rule works and catches this specific kind of formatting issue.";
 После строка была убрана (добаление было для выполнения задания).
 Почему: Затрудняет проведению ревью, при выводе не всегда понятно, какие именно были изменения
 https://checkstyle.org/checks/sizes/linelength.html
 
-WhitespaceAround
+**WhitespaceAround**
 До public int size(){
 После public int size() {
 Почему: Повышает читаемость кода
@@ -134,7 +134,7 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 ## Быстрая проверка
 
 Выполни в терминале:
-```bash
+
 ./gradlew checkstyleMain 
 ./gradlew test
 ./gradlew jacocoTestCoverageVerification
@@ -179,12 +179,12 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 4. Итоговый результат: покрытие 88%, сборка успешна.
 5. Отчёт: `build/reports/jacoco/test/html/index.html`.
 
-## Ошибка:
+### Ошибка:
 https://github.com/smuki14/devtools/actions/runs/30572200312
 ## Исправление:
 https://github.com/smuki14/devtools/actions/runs/30573721946
 
-## Бейдж статус CI:
+### Бейдж статус CI:
 [![Java CI](https://github.com/smuki14/devtools/actions/workflows/ci.yml/badge.svg)](https://github.com/smuki14/devtools/actions/workflows/ci.yml)
 
 ## Code Review Checklist
@@ -220,9 +220,10 @@ https://github.com/smuki14/devtools/actions/runs/30573721946
 **Предложение:** [как исправить или альтернатива]
 
 ## Примеры Code Review комментариев
+
 ### Конструктивные примеры:
 
-1. **Проблема:** В ProgressTrackerTest в строке 21 прописано String result = tracker.calculateTotalProgress(mentees);
+1.**Проблема:** В ProgressTrackerTest в строке 21 прописано String result = tracker.calculateTotalProgress(mentees);
 
 **Почему это важно:** В тестах передается в метод calculateTotalProgress список (List<Mentee> mentees), 
 а сам метод объявлен так, что ждёт массив (Mentee[]). Java не умеет автоматически конвертировать List в массив в таком вызове.
@@ -230,7 +231,7 @@ https://github.com/smuki14/devtools/actions/runs/30573721946
 **Предложение:** В ProgressTrackerTest везде, где вызывается calculateTotalProgress(mentees), необходимо заменить передачу списка на преобразование в массив. 
 Было: String result = tracker.calculateTotalProgress(mentees); Стало: String result = tracker.calculateTotalProgress(mentees.toArray(new Mentee[0]));
 
-2. **Проблема:** В Student отсутствует фигурная скобка
+2.**Проблема:** В Student отсутствует фигурная скобка
 
 **Почему это важно:** Из-за отсутствия фигурной скобки код нескомпилируется  
 
@@ -266,7 +267,7 @@ ci.yml не возможно
 
 **Предложение:** необходимо заменить 'feature/DVT-8-fix2' на 'feature/**'
 
-2. **Проблема:** В ProgressTracker директория пакета package ru.mentee.power.devtools,
+2.**Проблема:** В ProgressTracker директория пакета package ru.mentee.power.devtools,
 а ProgressTracker имеет путь package ru.mentee.power.devtools.progress  
 **Почему это важно:**Структура папок в Packeg должна в точности повторять структуру пакетов.
 Это связано с тем, что Javaс и JVM используют файловую систему для поиска .class-файлов.
@@ -274,14 +275,13 @@ ci.yml не возможно
 Компиляция не проходит
 **Предложение:** Заменить ru.mentee.power.devtools на ru.mentee.power.devtools.progress
 
-3. **Проблема:** В ProgressLoopTest, в строках 14,32,48,56,64 необходимо убрать подчеркивания в именах методов
+3.**Проблема:** В ProgressLoopTest, в строках 14,32,48,56,64 необходимо убрать подчеркивания в именах методов
 
 **Почему это важно:** В checkstyle.xml прописано правило MethodName, которое недопускает данные ошибки. Так же ревьюер сразу попросит переименовать методы с подчёркиваниями. Это лишние итерации и задержка мерджа.
 Так же, когда в проекте много похожих методов, единый стиль помогает быстрее понимать, где какой метод. Если кто‑то другой будет править ProgressLoopTest или StudentListTest, ему будет проще ориентироваться.
 
 
 **Предложение:** Необходимо исправить на примере: Было - shouldCalculateTotalProgress_whenMultipleMentees Стало - shouldCalculateTotalProgressWhenMultipleMentees
-
 
 ## Информационный поиск — результаты DVT-11
 
@@ -294,9 +294,9 @@ ci.yml не возможно
 | 3 |Горячие клавиши IDEA |site:www.jetbrains.com/help "keymap" |jetbrains.com/help |	Help → Keymap Reference (встроенная справка)|200 OK |02.08.2026 |
 
 
-#### Промпт 1: Проверка кода
-Код для проверки:
-DeepSeek: (Я написал код для фильтрации студентов по городу.
+## Промпт 1: Проверка кода
+### Код для проверки:
+### DeepSeek: (Я написал код для фильтрации студентов по городу.
 Вот код:package ru.mentee.power.devtools.student;
 
 import java.util.ArrayList;
@@ -336,6 +336,7 @@ public class StudentList {
 
 НЕ переписывай — укажи проблемы и предложи, как исправить.)
 
+#### Ответ
 1. Логические ошибки и граничные случаи
 Проблема 1.1: Чувствительность к регистру
 Где: s.getCity().equals(city)
@@ -376,7 +377,7 @@ public void addStudent(Student student) {
     }
     students.add(student);
 }
-2. Java Code Conventions (Google/Java Style Guide)
+2.Java Code Conventions (Google/Java Style Guide)
 Проблема 2.1: Лишние пустые строки
 Где:
 
@@ -393,7 +394,7 @@ public void addStudent (Student student) { — пробел перед ( лиш�
 Проблема 2.2: Порядок модификаторов
 Всё в порядке: public идёт первым, затем final.
 
-3. Производительность
+3.Производительность
 Проблема 3.1: Collectors.toList() возвращает ArrayList
 В чём проблема: Это нормально, но если метод вызывается очень часто, создание нового списка каждый раз — накладные расходы.
 
@@ -405,7 +406,7 @@ return students.stream()
         .collect(Collectors.collectingAndThen(Collectors.toList(), List::copyOf));
 Но это уже избыточно для вашей задачи.
 
-4. Дополнительные рекомендации
+4.Дополнительные рекомендации
 Рекомендация 4.1: Имя метода
 getStudentsByCity — хорошее имя. Оно понятно и соответствует тому, что делает метод.
 
@@ -420,7 +421,7 @@ getStudentsByCity — хорошее имя. Оно понятно и соотв
 Лишний пробел в addStudent (Student	addStudent (Student	Убрать пробел: addStudent(Student
 Лишние пустые строки в теле методов	После { в size(), getAll(), getStudentsByCity	Убрать пустые строки
 
-Алиса: (Я написал код для фильтрации студентов по городу.
+### Алиса: (Я написал код для фильтрации студентов по городу).
 Вот код:package ru.mentee.power.devtools.student;
 
 import java.util.ArrayList;
@@ -457,6 +458,7 @@ public class StudentList {
     }
 }
 
+#### Ответ
 Логические ошибки и граничные случаи
 Чувствительность к регистру в сравнении городов. Сейчас s.getCity().equals(city) сработает только при точном совпадении регистра (например, «Москва» ≠ «москва»). Это частая логическая проблема в фильтрах.
 Как исправить: использовать equalsIgnoreCase либо заранее нормализовать город (например, city = city.trim().toLowerCase()), но тогда и в объектах студентов город тоже должен быть нормализован. Вариант:
@@ -663,5 +665,137 @@ null массив;
 Сравнение: Использовав два ассиестента (DeepSeek и Алиса)нашел два различия. В DeepSeek ответы более конкретизированные. В целом и тот и тот ассистент предоставили подробные ответы. На примере данного запроса, мне кажется что тут дело вкуса. Алиса выдает сначало много
 текста, как бы вводит тебя в курс происходящего, впоследствии переходя к сути. DeepSeek же, как и написал выше, более конкретен в своем ответе. Все описано по пунктно, нет воды.
 Если опираться на свой опыт использования двух ассистентов (а именно их я использовал при прохождении 3 Спринтов), то в последнее время предпочтения отдаю больше DeepSeek, из-за его конкретики и минимум текса. Все по существу.
+
+## Личный глоссарий терминов Dev Tools 
+
+### Категория: Java-экосистема
+#### JDK — Java Development Kit
+**Определение:** Development environment for building Java applications; includes javac, jar, javadoc.
+**Контекст:** нужен для компиляции кода в байт-код и сборки проекта.
+**Пример:** java -version проверяет версию; в IDEA Project SDK указывает на установленный JDK.
+**Источник:** https://docs.oracle.com/en/java/javase/
+
+#### JRE — Java Runtime Environment
+**Определение:** The JRE provides the libraries, Java virtual machine, 
+and other components necessary for you to run applets and applications written in the Java programming language. 
+This runtime environment can be redistributed with applications to make them free-standing.
+**Контекст:** JRE предоставляет библиотеки, виртуальную машину Java и другие компоненты, необходимые для запуска апплетов и приложений, написанных на языке Java
+**Пример:** java -jar app.jar --config config.xml
+**Источник:** https://docs.oracle.com/javase/8/docs/technotes/guides/
+
+#### JVM - Java Virtual Machine
+**Определение:** This is the foundation of the Java runtime environment. The JVM loads, verifies, and executes the application and library code.
+**Контекст:** Нажимая кнопку RUN, IDEA запускает код в отдельном процессе JVM. Так же обеспечивает работу редактора, проверки кода, автодополнения и всех остальных функций
+**Пример:** Запуск происходит через команду 'java', загружает указанный класс, находит в нем метод 'main' и запускает его выполнение.
+**Источник** https://docs.oracle.com/javase/jp/8/embedded/develop-apps-platforms/embedded-jvms.htm#CHDCHECF
+
+#### JAR - Java ARchive - Архив Java
+**Определение:** It's a file format based on the popular ZIP file format and is used for aggregating many files into one.
+**Контекст:** При использовании сторонней библиотеки, чтобы получить готовый для передачи файл, чтобы протестировать готовое приложение или запустить его на сервере.
+**Пример:** Build → Build Artifacts → Build; Run → Edit Configurations → + → JAR Application.
+**Источник** https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
+
+### Категория: Инструменты разработки 
+#### Pull Request - Запрос на слияние
+**Определение:** A pull request is a proposal to merge a set of changes from one branch into another.
+**Контекст:** Code Review, обучение и обмен знаниями, прозрачность и аудит. 
+**Пример:** 'git push origin *имя ветки* - Compare & pull request'
+**Источник** https://docs.github.com/en/enterprise-server@3.13/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+
+#### Gradle Wrapper - Gradle Wrapper
+**Определение:** The recommended way to run any Gradle build.
+**Контекст:** Стандартизация (Проект всегда собирается с одной и той же версией Gradle, 
+независимо от того, у кого на компьютере запускается сборка), Простота настройки (Чтобы начать работать с проектом, 
+новому разработчику не нужно вручную устанавливать Gradle — достаточно склонировать репозиторий и запустить './gradlew'),
+Гибкость обновления (Сменить версию Gradle для всего проекта можно простым изменением одной строчки в файле 'gradle/wrapper/gradle-wrapper.properties')
+**Пример:** ./gradlew build
+**Источник** https://docs.gradle.org/current/userguide/gradle_wrapper.html
+
+#### Branch - Ветка
+**Определение:** A pointer (reference) to a specific commit.
+**Контекст:** Чтобы работать над новой функцией, не мешая стабильному коду в основной ветке (обычно master или main)
+**Пример:** 'git checkout -b feature/*имя ветки*' - создает новую ветку и переключается на нее.
+**Источник** https://docs.gradle.org/current/userguide/gradle_wrapper.html
+
+#### Git - Git 
+**Определение:** Distributed version control system
+**Контекст:** позволяет отслеживать изменения в любых файлах, 
+координировать работу нескольких разработчиков и сохранять полную историю проекта
+**Пример:** 'git status' - показывает текущее состояние файлов; 'git fetch' - загружает новые данные, но не удаляет ссылки на удалённые ветки;
+'git remote prune origin' - удаляет локальные ссылки на удалённые ветки, которых нет на сервере
+**Источник** https://git-scm.com/?utm_campaign=programador-junior-python-en-madrid
+
+#### Checkstyle - Checkstyle
+**Определение:** A development tool that helps programmers write Java code that complies with the coding standard.
+**Контекст:** Он автоматизирует процесс проверки Java-кода, избавляя разработчиков от этой рутинной (но важной) задачи
+**Пример:** './gradlew checkstyleMain' - проверка основного кода; './gradlew checkstyleTest' - проверка тестов;
+'./gradlew checkstyleMain checkstyleTest' - проверка всего кода.
+**Источник** https://checkstyle.sourceforge.io/version/10.21.1/summary.html#Project_Summary
+
+#### Commit - Commit
+**Определение:** It’s like “saving” your work, but with powerful features for tracking history.
+**Контекст:** Создание "точек сохранения", формирование истории, основа для совместной работы
+**Пример:** 'git commit -m "feat: реализация *имя ветки*' - запись изменений в репозиторий
+**Источник** https://git.github.io/htmldocs/git-commit.html
+
+#### Debug - Debug
+**Определение:** The process of identifying, isolating, and fixing errors (bugs) in the software code.
+**Контекст:** Где: Локальная отладка приложений, Отладка тестов; 
+Зачем: Останавливать выполнение в нужный момент (Breakpoints); Управлять выполнением по шагам (Stepping).
+**Пример:** ПКМ на main → Debug 'нужный class'
+**Источник** https://learn.microsoft.com/en-ca/visualstudio/debugger/what-is-debugging?view=vs-2022
+
+### Категория: Процессы и практики
+#### Code Review - Проверка кода
+**Определение:** A systematic review of the source code to improve its quality, identify errors, 
+and ensure that the code complies with the project’s standards and requirements.
+**Контекст:** Поиск ошибок и улучшение качества, Обучение и обмен знаниями, Обеспечение единых стандартов,
+Улучшение совместной работы.
+**Пример:** В PR комментарий от ревьюера
+**Источник** https://www.reviewboard.org/docs/manual/5.0/users/getting-started/what-is-code-review/
+
+#### Self-Review - Саморецензирование
+**Определение:** The process in which the code author independently checks their changes 
+before sending them for review by colleagues or merging them into the main branch.
+**Контекст:** Цель - поймать очевидные ошибки до того, как на них потратят время другие разработчики
+**Пример:** './gradlew checkstyleMain test' - проверяет качество кода; 
+'git status' - показать текущее состояние рабочего каталога и индекса.
+**Источник** https://github.com/etak-ai/etak/blob/main/deliver/skills/review/SKILL.md
+
+#### Runbook - Runbook
+**Определение:** This is a documented process for achieving
+**Контекст:** Снижение рисков и человеческого фактора, стандартизация и обучение, автоматизация и скорость.
+**Пример:** Run/Debug Configurations и Startup Tasks
+**Источник** https://www.cortex.io/post/keep-calm-and-use-the-runbook
+
+#### Checkpoint - Checkpoint
+**Определение:** Saving the system state at a specific point in time to enable recovery.
+**Контекст:** В Git это может быть как личная практика частых коммитов, 
+так и техническая команда в fast-import для защиты от сбоев при импорте больших данных.
+**Пример:** Local History, Labels
+**Источник** https://qwenlm.github.io/qwen-code-docs/de/users/features/checkpointing/#aktivieren-der-funktion
+
+### Вопросы по сложным терминам
+### Вопрос N 1: Terminal
+**Задача:** Понять как работает во всей системе IDEA, как он взаимодействует со всеми командами в Terminal
+**Контекст:** Встретил при прохождении заданий, от напиании кода, до push в github.
+Изучил различные команды.
+**Ограничения:** Проверок статусов, удаления файлов, перемещения на удаленный репозиторий и т.д.
+**Ожидаемый результат:** Это как командная строка прямо внутри проекта — вместо того, 
+чтобы открывать отдельное окно cmd или терминал, нужно нажать Alt+F12 и получить доступ к консоли, которая уже находится в папке с кодом.
+Terminal нужен, чтобы быстро:
+- Запускать Gradle, Maven или другие команды для сборки приложения.
+- Работать с Git (делать commit, push, pull), если удобнее через команды, а не через кнопки.
+- Выполнять любые системные команды, например, проверить версию Java или переименовать файл, не переключаясь между окнами.
+**Критерии успеха:** Разобрался в целом для чего используется Terminal, так же добавил себе шпаргалку по актуальным командам.
+
+### Вопрос N 2: Breakpoint
+**Задача:** Как правильно им пользоваться, для чего он нужен
+**Контекст:** При поиске ошибки в коде
+**Ограничения:** Ставил маркер в коде, чтобы приостановить выполнение программы в нужном месте и изучть что происходит внутри.
+**Ожидаемый результат:** Это главный инструмент отладчика в IntelliJ IDEA, позволяющий «заглянуть» в работающую программу и найти ошибку.
+**Критерии успеха:** Нужно поставить точку в нужной мне строке кода, далее нажать Debug или Shift+F9.
+Программа запустится и остановится на первой же строке, где я поставил Breakpoint.
+
 
 
