@@ -134,7 +134,7 @@ https://checkstyle.org/checks/whitespace/whitespacearound.html
 ## Быстрая проверка
 
 Выполни в терминале:
-```bash
+
 ./gradlew checkstyleMain 
 ./gradlew test
 ./gradlew jacocoTestCoverageVerification
@@ -220,6 +220,7 @@ https://github.com/smuki14/devtools/actions/runs/30573721946
 **Предложение:** [как исправить или альтернатива]
 
 ## Примеры Code Review комментариев
+
 ### Конструктивные примеры:
 
 1. **Проблема:** В ProgressTrackerTest в строке 21 прописано String result = tracker.calculateTotalProgress(mentees);
@@ -282,32 +283,7 @@ ci.yml не возможно
 
 **Предложение:** Необходимо исправить на примере: Было - shouldCalculateTotalProgress_whenMultipleMentees Стало - shouldCalculateTotalProgressWhenMultipleMentees
 
-
-## Информационный поиск — результаты DVT-11
-
-### Запросы и источники
-
-| № | Запрос | Операторы | Официальный источник | Альтернатива | Статус | Дата |
-|---|--------|-----------|----------------------|--------------|--------|------|
-| 1 | | | | | | |
-| 2 | | | | | | |
-| 3 | | | | | | |
-
-### AI-промпты и сравнение
-
-#### Промпт 1: План решения
-Задача / Контекст / Ограничения / Ожидаемый результат / Критерии успеха
-AI-1 (...):
-AI-2 (...):
-Сравнение: что совпало, что различалось, что выбрал и почему
-
-#### Промпт 2: Проверка кода
-Код для проверки:
-AI-1 (...):
-AI-2 (...):
-Сравнение:
-
-### Запросы и источники
+## Запросы и источники
 
 | № | Запрос | Операторы | Официальный источник | Альтернатива | Статус | Дата |
 |---|--------|-----------|----------------------|--------------|--------|------|
@@ -418,4 +394,136 @@ DeepSeek (Задача: Реализовать метод calculateTotalProgress
 Сравнение: Использовав два ассиестента (DeepSeek и Алиса)нашел два различия. В DeepSeek ответы более конкретизированные. В целом и тот и тот ассистент предоставили подробные ответы. На примере данного запроса, мне кажется что тут дело вкуса. Алиса выдает сначало много
 текста, как бы вводит тебя в курс происходящего, впоследствии переходя к сути. DeepSeek же, как и написал выше, более конкретен в своем ответе. Все описано по пунктно, нет воды.
 Если опираться на свой опыт использования двух ассистентов (а именно их я использовал при прохождении 3 Спринтов), то в последнее время предпочтения отдаю больше DeepSeek, из-за его конкретики и минимум текса. Все по существу.
+
+## Личный глоссарий терминов Dev Tools 
+
+### Категория: Java-экосистема
+#### JDK — Java Development Kit
+**Определение:** Development environment for building Java applications; includes javac, jar, javadoc.
+**Контекст:** нужен для компиляции кода в байт-код и сборки проекта.
+**Пример:** java -version проверяет версию; в IDEA Project SDK указывает на установленный JDK.
+**Источник:** https://docs.oracle.com/en/java/javase/
+
+#### JRE — Java Runtime Environment
+**Определение:** The JRE provides the libraries, Java virtual machine, 
+and other components necessary for you to run applets and applications written in the Java programming language. 
+This runtime environment can be redistributed with applications to make them free-standing.
+**Контекст:** JRE предоставляет библиотеки, виртуальную машину Java и другие компоненты, необходимые для запуска апплетов и приложений, написанных на языке Java
+**Пример:** java -jar app.jar --config config.xml
+**Источник:** https://docs.oracle.com/javase/8/docs/technotes/guides/
+
+#### JVM - Java Virtual Machine
+**Определение:** This is the foundation of the Java runtime environment. The JVM loads, verifies, and executes the application and library code.
+**Контекст:** Нажимая кнопку RUN, IDEA запускает код в отдельном процессе JVM. Так же обеспечивает работу редактора, проверки кода, автодополнения и всех остальных функций
+**Пример:** Запуск происходит через команду 'java', загружает указанный класс, находит в нем метод 'main' и запускает его выполнение.
+**Источник** https://docs.oracle.com/javase/jp/8/embedded/develop-apps-platforms/embedded-jvms.htm#CHDCHECF
+
+#### JAR - Java ARchive - Архив Java
+**Определение:** It's a file format based on the popular ZIP file format and is used for aggregating many files into one.
+**Контекст:** При использовании сторонней библиотеки, чтобы получить готовый для передачи файл, чтобы протестировать готовое приложение или запустить его на сервере.
+**Пример:** Build → Build Artifacts → Build; Run → Edit Configurations → + → JAR Application.
+**Источник** https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
+
+### Категория: Инструменты разработки 
+#### Pull Request - Запрос на слияние
+**Определение:** A pull request is a proposal to merge a set of changes from one branch into another.
+**Контекст:** Code Review, обучение и обмен знаниями, прозрачность и аудит. 
+**Пример:** 'git push origin *имя ветки* - Compare & pull request'
+**Источник** https://docs.github.com/en/enterprise-server@3.13/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+
+#### Gradle Wrapper - Gradle Wrapper
+**Определение:** The recommended way to run any Gradle build.
+**Контекст:** Стандартизация (Проект всегда собирается с одной и той же версией Gradle, 
+независимо от того, у кого на компьютере запускается сборка), Простота настройки (Чтобы начать работать с проектом, 
+новому разработчику не нужно вручную устанавливать Gradle — достаточно склонировать репозиторий и запустить './gradlew'),
+Гибкость обновления (Сменить версию Gradle для всего проекта можно простым изменением одной строчки в файле 'gradle/wrapper/gradle-wrapper.properties')
+**Пример:** ./gradlew build
+**Источник** https://docs.gradle.org/current/userguide/gradle_wrapper.html
+
+#### Branch - Ветка
+**Определение:** A pointer (reference) to a specific commit.
+**Контекст:** Чтобы работать над новой функцией, не мешая стабильному коду в основной ветке (обычно master или main)
+**Пример:** 'git checkout -b feature/*имя ветки*' - создает новую ветку и переключается на нее.
+**Источник** https://docs.gradle.org/current/userguide/gradle_wrapper.html
+
+#### Git - Git 
+**Определение:** Distributed version control system
+**Контекст:** позволяет отслеживать изменения в любых файлах, 
+координировать работу нескольких разработчиков и сохранять полную историю проекта
+**Пример:** 'git status' - показывает текущее состояние файлов; 'git fetch' - загружает новые данные, но не удаляет ссылки на удалённые ветки;
+'git remote prune origin' - удаляет локальные ссылки на удалённые ветки, которых нет на сервере
+**Источник** https://git-scm.com/?utm_campaign=programador-junior-python-en-madrid
+
+#### Checkstyle - Checkstyle
+**Определение:** A development tool that helps programmers write Java code that complies with the coding standard.
+**Контекст:** Он автоматизирует процесс проверки Java-кода, избавляя разработчиков от этой рутинной (но важной) задачи
+**Пример:** './gradlew checkstyleMain' - проверка основного кода; './gradlew checkstyleTest' - проверка тестов;
+'./gradlew checkstyleMain checkstyleTest' - проверка всего кода.
+**Источник** https://checkstyle.sourceforge.io/version/10.21.1/summary.html#Project_Summary
+
+#### Commit - Commit
+**Определение:** It’s like “saving” your work, but with powerful features for tracking history.
+**Контекст:** Создание "точек сохранения", формирование истории, основа для совместной работы
+**Пример:** 'git commit -m "feat: реализация *имя ветки*' - запись изменений в репозиторий
+**Источник** https://git.github.io/htmldocs/git-commit.html
+
+#### Debug - Debug
+**Определение:** The process of identifying, isolating, and fixing errors (bugs) in the software code.
+**Контекст:** Где: Локальная отладка приложений, Отладка тестов; 
+Зачем: Останавливать выполнение в нужный момент (Breakpoints); Управлять выполнением по шагам (Stepping).
+**Пример:** ПКМ на main → Debug 'нужный class'
+**Источник** https://learn.microsoft.com/en-ca/visualstudio/debugger/what-is-debugging?view=vs-2022
+
+### Категория: Процессы и практики
+#### Code Review - Проверка кода
+**Определение:** A systematic review of the source code to improve its quality, identify errors, 
+and ensure that the code complies with the project’s standards and requirements.
+**Контекст:** Поиск ошибок и улучшение качества, Обучение и обмен знаниями, Обеспечение единых стандартов,
+Улучшение совместной работы.
+**Пример:** В PR комментарий от ревьюера
+**Источник** https://www.reviewboard.org/docs/manual/5.0/users/getting-started/what-is-code-review/
+
+#### Self-Review - Саморецензирование
+**Определение:** The process in which the code author independently checks their changes 
+before sending them for review by colleagues or merging them into the main branch.
+**Контекст:** Цель - поймать очевидные ошибки до того, как на них потратят время другие разработчики
+**Пример:** './gradlew checkstyleMain test' - проверяет качество кода; 
+'git status' - показать текущее состояние рабочего каталога и индекса.
+**Источник** https://github.com/etak-ai/etak/blob/main/deliver/skills/review/SKILL.md
+
+#### Runbook - Runbook
+**Определение:** This is a documented process for achieving
+**Контекст:** Снижение рисков и человеческого фактора, стандартизация и обучение, автоматизация и скорость.
+**Пример:** Run/Debug Configurations и Startup Tasks
+**Источник** https://www.cortex.io/post/keep-calm-and-use-the-runbook
+
+#### Checkpoint - Checkpoint
+**Определение:** Saving the system state at a specific point in time to enable recovery.
+**Контекст:** В Git это может быть как личная практика частых коммитов, 
+так и техническая команда в fast-import для защиты от сбоев при импорте больших данных.
+**Пример:** Local History, Labels
+**Источник** https://qwenlm.github.io/qwen-code-docs/de/users/features/checkpointing/#aktivieren-der-funktion
+
+### Вопросы по сложным терминам
+### Вопрос N 1: Terminal
+**Задача:** Понять как работает во всей системе IDEA, как он взаимодействует со всеми командами в Terminal
+**Контекст:** Встретил при прохождении заданий, от напиании кода, до push в github.
+Изучил различные команды.
+**Ограничения:** Проверок статусов, удаления файлов, перемещения на удаленный репозиторий и т.д.
+**Ожидаемый результат:** Это как командная строка прямо внутри проекта — вместо того, 
+чтобы открывать отдельное окно cmd или терминал, нужно нажать Alt+F12 и получить доступ к консоли, которая уже находится в папке с кодом.
+Terminal нужен, чтобы быстро:
+- Запускать Gradle, Maven или другие команды для сборки приложения.
+- Работать с Git (делать commit, push, pull), если удобнее через команды, а не через кнопки.
+- Выполнять любые системные команды, например, проверить версию Java или переименовать файл, не переключаясь между окнами.
+**Критерии успеха:** Разобрался в целом для чего используется Terminal, так же добавил себе шпаргалку по актуальным командам.
+
+### Вопрос N 2: Breakpoint
+**Задача:** Как правильно им пользоваться, для чего он нужен
+**Контекст:** При поиске ошибки в коде
+**Ограничения:** Ставил маркер в коде, чтобы приостановить выполнение программы в нужном месте и изучть что происходит внутри.
+**Ожидаемый результат:** Это главный инструмент отладчика в IntelliJ IDEA, позволяющий «заглянуть» в работающую программу и найти ошибку.
+**Критерии успеха:** Нужно поставить точку в нужной мне строке кода, далее нажать Debug или Shift+F9.
+Программа запустится и остановится на первой же строке, где я поставил Breakpoint.
+
 
