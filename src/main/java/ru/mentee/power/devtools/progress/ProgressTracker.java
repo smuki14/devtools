@@ -32,4 +32,16 @@ public class ProgressTracker {
 
         System.out.println(new ProgressTracker().calculateTotalProgress(mentees));
     }
+
+    public double averageProgressPercent(Mentee[] mentees) {
+        if (mentees == null || mentees.length == 0) {
+            throw new IllegalArgumentException("Пустой список mentee");
+        }
+        double totalPercent = 0.0;
+        for (Mentee m : mentees) {
+            // процент = completedLessons * 100.0 / totalLessons
+            totalPercent += m.completedLessons() * 100.0 / m.totalLessons();
+        }
+        return totalPercent / mentees.length;
+    }
 }
